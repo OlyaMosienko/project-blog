@@ -6,37 +6,23 @@
       "password": "qwerty123",
       "registed_at": "2024-10-11",
       "role_id": 0
-    },
-    {
-      "id": "a6e8",
-      "login": "natasha",
-      "password": "natasha123",
-      "registed_at": "2043-06-13 17:59",
-      "role_id": 2
-    },
-    {
-      "id": "2dfe",
-      "login": "natasha1",
-      "password": "qwerty123",
-      "registed_at": "2057-08-27 00:00",
-      "role_id": 2
     }
   ],
   "roles": [
     {
-      "id": "0",
+      "id": 0,
       "name": "Администратор"
     },
     {
-      "id": "1",
+      "id": 1,
       "name": "Модератор"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Читатель"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Гость"
     }
   ],

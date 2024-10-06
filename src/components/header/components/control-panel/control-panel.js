@@ -17,10 +17,6 @@ const RightAligned = styled.div`
 	gap: 15px;
 `;
 
-const StyledIcon = styled.div`
-	cursor: pointer;
-`;
-
 const UserName = styled.div`
 	font-size: 18px;
 	font-weight: bold;
@@ -43,16 +39,12 @@ const ControlPanelContainer = ({ className }) => {
 				) : (
 					<>
 						<UserName>{login}</UserName>
-						<StyledIcon onClick={() => dispatch(logout(session))}>
-							<Icon id="sign-out" />
-						</StyledIcon>
+						<Icon id="sign-out" onClick={() => dispatch(logout(session))} />
 					</>
 				)}
 			</RightAligned>
 			<RightAligned>
-				<StyledIcon onClick={() => navigate(-1)}>
-					<Icon id="backward" />
-				</StyledIcon>
+				<Icon id="backward" onClick={() => navigate(-1)} />
 				<Link to="post">
 					<Icon id="file-text-o" />
 				</Link>
