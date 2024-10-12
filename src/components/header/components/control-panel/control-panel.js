@@ -44,17 +44,17 @@ const ControlPanelContainer = ({ className }) => {
 				) : (
 					<>
 						<UserName>{login}</UserName>
-						<Icon id="sign-out" onClick={onLogout} />
+						<Icon isButton={true} id="sign-out" onClick={onLogout} />
 					</>
 				)}
 			</RightAligned>
 			<RightAligned>
-				<Icon id="backward" onClick={() => navigate(-1)} />
+				<Icon isButton={true} id="backward" onClick={() => navigate(-1)} />
 				<Link to="post">
-					<Icon id="file-text-o" />
+					<Icon isButton={true} id="file-text-o" />
 				</Link>
 				<Link to="users">
-					<Icon id="users" />
+					<Icon isButton={true} id="users" />
 				</Link>
 			</RightAligned>
 		</div>

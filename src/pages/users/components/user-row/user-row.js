@@ -49,7 +49,7 @@ const UserRowContainer = ({
 					/>
 				</div>
 			</TableRow>
-			<Icon id="trash-o" onClick={onUserRemove} />
+			<Icon isButton={true} id="trash-o" onClick={onUserRemove} />
 		</div>
 	);
 };

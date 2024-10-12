@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Icon, Input } from '../../../../components';
@@ -12,9 +12,14 @@ const PostFormContainer = ({
 	className,
 	post: { id, title, imageUrl, content, publishedAt },
 }) => {
-	const imageRef = useRef(null);
-	const titleRef = useRef(null);
+	const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
+	const [titleValue, setTitleValue] = useState(title);
 	const contentRef = useRef(null);
+
+	useLayoutEffect(() => {
+		setImageUrlValue(title);
+		setTitleValue(title);
+	}, [imageUrl, title]);
 
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
@@ -22,30 +27,37 @@ const PostFormContainer = ({
 	const navigate = useNavigate();
 
 	const onSave = () => {
-		const newImageUrl = imageRef.current.value;
-		const newTitle = titleRef.current.value;
 		const newContent = sanitizeContent(contentRef.current.innerHTML);
 
 		dispatch(
 			savePostAsync(requestServer, {
 				id,
-				imageUrl: newImageUrl,
-				title: newTitle,
+				imageUrl: imageUrlValue,
+				title: titleValue,
 				content: newContent,
 			}),
-		);
-
-		navigate(`/post/${id}`);
+		).then(({ id }) => navigate(`/post/${id}`));
 	};
 
 	return (
 		<div className={className}>
-			<Input ref={imageRef} defaultValue={imageUrl} placeholder="Изображение..." />
-			<Input ref={titleRef} defaultValue={title} placeholder="Заголовок..." />
+			<Input
+				onChange={({ target }) => setImageUrlValue(target.value)}
+				value={imageUrlValue}
+				placeholder="Изображение..."
+			/>
+			<Input
+				onChange={({ target }) => setTitleValue(target.value)}
+				value={titleValue}
+				placeholder="Заголовок..."
+			/>
 			<SpecialPanel
-				publishedAt={publishedAt}
 				margin="20px 0"
-				editButton={<Icon id="floppy-o" size="21px" onClick={onSave} />}
+				id={id}
+				publishedAt={publishedAt}
+				editButton={
+					<Icon isButton={true} id="floppy-o" size="21px" onClick={onSave} />
+				}
 			/>
 			<div
 				ref={contentRef}
@@ -65,8 +77,14 @@ export const PostForm = styled(PostFormContainer)`
 		margin: 0 30px 10px 0;
 	}
 
+	& input + input {
+		margin-top: 10px;
+	}
+
 	& .post-text {
 		font-size: 18px;
 		white-space: pre-line;
+		min-height: 80px;
+		border: 1px solid #000;
 	}
 `;
