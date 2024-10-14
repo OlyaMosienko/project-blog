@@ -13,4 +13,8 @@ export const Button = styled(ButtonContainer)`
 	padding: 5px 15px;
 	width: ${({ width = '100%' }) => width};
 	cursor: pointer;
+
+	&:disabled {
+		cursor: default;
+	}
 `;
