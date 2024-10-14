@@ -30,4 +30,5 @@ export const Header = styled(HeaderContainer)`
 	box-shadow: 0 -2px 18px #000;
 	position: fixed;
 	top: 0;
+	z-index: 10;
 `;
