@@ -2,13 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Icon } from '../../../../components';
 import { ROLE } from '../../../../constants';
-import styled from 'styled-components';
 import {
 	selectUserRole,
 	selectUserLogin,
 	selectUserSession,
 } from '../../../../selectors';
 import { logout } from '../../../../actions';
+import { checkAccess } from '../../../../utils';
+import styled from 'styled-components';
 
 const RightAligned = styled.div`
 	display: flex;
@@ -34,6 +35,8 @@ const ControlPanelContainer = ({ className }) => {
 		sessionStorage.removeItem('userData');
 	};
 
+	const isAdmin = checkAccess([ROLE.ADMIN], roleId);
+
 	return (
 		<div className={className}>
 			<RightAligned>
@@ -50,12 +53,16 @@ const ControlPanelContainer = ({ className }) => {
 			</RightAligned>
 			<RightAligned>
 				<Icon isButton={true} id="backward" onClick={() => navigate(-1)} />
-				<Link to="post">
-					<Icon isButton={true} id="file-text-o" />
-				</Link>
-				<Link to="users">
-					<Icon isButton={true} id="users" />
-				</Link>
+				{isAdmin && (
+					<>
+						<Link to="post">
+							<Icon isButton={true} id="file-text-o" />
+						</Link>
+						<Link to="users">
+							<Icon isButton={true} id="users" />
+						</Link>
+					</>
+				)}
 			</RightAligned>
 		</div>
 	);
